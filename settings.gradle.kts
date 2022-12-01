@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "Github Swipe"
 includeBuild("plugin")
 include(":app")
+include(":core:data")
+include(":core:domain")

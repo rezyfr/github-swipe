@@ -26,6 +26,14 @@ android {
         versionCode = Plugin.configVersion.versionCode
         versionName = Plugin.configVersion.versionName
     }
+    signingConfigs {
+        create("release") {
+            storeFile = file("keystore.jks")
+            storePassword = "123456"
+            keyPassword = "123456"
+            keyAlias = "keystore"
+        }
+    }
 
     buildTypes {
         release {
@@ -33,12 +41,22 @@ android {
             isShrinkResources = true
             isDebuggable = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            buildConfigField("String", "BASE_URL", buildProperty("BASE_RELEASE_URL"))
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             isTestCoverageEnabled = false
             isDebuggable = true
+        }
+    }
+    flavorDimensions.add("api")
+    productFlavors {
+        create("development"){
             buildConfigField("String", "BASE_URL", buildProperty("BASE_DEBUG_URL"))
+            dimension = "api"
+        }
+        create("production"){
+            buildConfigField("String", "BASE_URL", buildProperty("BASE_RELEASE_URL"))
+            dimension = "api"
         }
     }
 
@@ -71,12 +89,15 @@ dependencies {
     implementation(Plugin.androidX.core)
     implementation(Plugin.lifeCycle.runtime)
     implementation(Plugin.hilt.android)
-    implementation(Plugin.hilt.composeNavigation)
+    implementation(Plugin.thirdPartyLibrary.landscapistCoil)
     kapt(Plugin.hilt.compiler)
     Plugin.compose.implementation.forEach {
         implementation(it)
     }
     Plugin.coroutine.implementation.forEach {
         implementation(it)
+    }
+    Plugin.modules.implementation.forEach {
+        implementation(project(it))
     }
 }

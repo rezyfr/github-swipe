@@ -22,5 +22,6 @@ class Plugin : Plugin<Project> {
         val testDependencies = Test
         val modules = Module
         val compose = Compose
+        val thirdPartyLibrary = ThirdPartyLibrary
     }
 }
