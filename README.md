@@ -11,7 +11,6 @@ Tech Stack
 * MVVM
 * Landscapist Coil
 * Hilt for DI
-* Paging3
 * Modularization
 
 Environment
@@ -23,4 +22,8 @@ Build with:
 
 How-to
 ------
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/22698234/205417213-3be03c79-6591-4894-a8e0-27aa2249ee42.gif)
 
+Known bug
+------
+If the last result search is swiped until the last item, the first index of next search result is not showing because the swipeDirection is filled (not null)
